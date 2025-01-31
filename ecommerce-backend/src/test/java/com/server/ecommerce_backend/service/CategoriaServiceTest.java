@@ -1,9 +1,7 @@
 package com.server.ecommerce_backend.service;
 
-
 import com.server.ecommerce_backend.entity.Categoria;
 import com.server.ecommerce_backend.repository.CategoriaRepository;
-import com.server.ecommerce_backend.service.CategoriaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -76,6 +74,7 @@ public class CategoriaServiceTest {
 
     }
 
+
     @Test
     void testListarCategorias() {
         List<Categoria> categorias = new ArrayList<>();
@@ -118,7 +117,6 @@ public class CategoriaServiceTest {
         verify(categoriaRepository, times(1)).findById(id);
         verify(categoriaRepository, times(1)).save(any(Categoria.class));
     }
-
     @Test
     void testAtualizarCategoriaNaoEncontrada() {
         UUID id = UUID.randomUUID();

@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.ecommerce_backend.entity.Categoria;
 import com.server.ecommerce_backend.service.CategoriaService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,7 +27,7 @@ public class CategoriaControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @Mock
     private CategoriaService categoriaService;
 
     @Test
@@ -48,9 +48,9 @@ public class CategoriaControllerTest {
     }
 
     @Test
-    void testBuscarCategoriaPorId() throws Exception{
+    void testBuscarCategoriaPorId() throws Exception {
         UUID id = UUID.randomUUID();
-        Categoria categoria = new Categoria(id,"Livros", "Livros de todos os gêneros.");
+        Categoria categoria = new Categoria(id, "Livros", "Livros de todos os gêneros.");
 
         when(categoriaService.buscarPorId(id)).thenReturn(categoria);
 
@@ -76,7 +76,7 @@ public class CategoriaControllerTest {
     }
 
     @Test
-    void testListarCategorias() throws Exception{
+    void testListarCategorias() throws Exception {
         Categoria categoria1 = new Categoria(UUID.randomUUID(), "Eletrônicos", "Produtos eletrônicos em geral.");
         Categoria categoria2 = new Categoria(UUID.randomUUID(), "Livros", "Livros de todos os gêneros.");
 
@@ -91,7 +91,7 @@ public class CategoriaControllerTest {
     }
 
     @Test
-    void testAtualizarCategoria() throws Exception{
+    void testAtualizarCategoria() throws Exception {
         UUID id = UUID.randomUUID();
         Categoria categoriaAtualizada = new Categoria(id, "Livros Atualizados", "Livros de todos os gêneros, atualizado.");
 

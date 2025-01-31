@@ -1,0 +1,43 @@
+-- Criar tabela Categorias
+CREATE TABLE Categorias (
+    id UUID PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    descricao TEXT
+);
+
+-- Criar tabela Produtos
+CREATE TABLE Produtos (
+    id UUID PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    descricao TEXT,
+    preco DECIMAL(10, 2) NOT NULL,
+    categoria_id UUID NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES Categorias(id)
+);
+
+-- Criar tabela Usuarios
+CREATE TABLE Usuarios (
+    id UUID PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL
+);
+
+-- Criar tabela Pedidos
+CREATE TABLE Pedidos (
+    id UUID PRIMARY KEY,
+    data_criacao TIMESTAMP NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    usuario_id UUID NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(id)
+);
+
+-- Criar tabela Pedido_Produtos (Tabela de Junção)
+CREATE TABLE Pedido_Produtos (
+    pedido_id UUID NOT NULL,
+    produto_id UUID NOT NULL,
+    quantidade INTEGER NOT NULL,
+    PRIMARY KEY (pedido_id, produto_id),
+    FOREIGN KEY (pedido_id) REFERENCES Pedidos(id),
+    FOREIGN KEY (produto_id) REFERENCES Produtos(id)
+);

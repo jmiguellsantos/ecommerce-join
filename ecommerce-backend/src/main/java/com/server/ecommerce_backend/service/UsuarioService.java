@@ -1,12 +1,12 @@
 package com.server.ecommerce_backend.service;
 
+import com.server.ecommerce_backend.config.PasswordConfig;
 import com.server.ecommerce_backend.entity.Usuario;
 import com.server.ecommerce_backend.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,14 +15,15 @@ import java.util.UUID;
 
 @Service
 public class UsuarioService implements UserDetailsService {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordConfig passwordConfig;
 
     public Usuario criar(Usuario usuario) {
-        usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
+        usuario.setPassword(passwordConfig.bCryptPasswordEncoder().encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
@@ -43,7 +44,7 @@ public class UsuarioService implements UserDetailsService {
         if (usuarioOptional.isPresent()) {
             Usuario usuario = usuarioOptional.get();
             usuario.setUsername(usuarioAtualizado.getUsername());
-            usuario.setPassword(bCryptPasswordEncoder.encode(usuarioAtualizado.getPassword()));
+            usuario.setPassword(passwordConfig.bCryptPasswordEncoder().encode(usuarioAtualizado.getPassword()));
             usuario.setRole(usuarioAtualizado.getRole());
             return usuarioRepository.save(usuario);
         }
