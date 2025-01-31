@@ -41,7 +41,7 @@ services:
     environment:
       API_URL: http://backend:8080
     networks:
-        - ecommerce-network
+      - ecommerce-network
 networks:
   ecommerce-network:
 volumes:
