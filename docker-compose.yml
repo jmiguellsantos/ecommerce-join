@@ -16,6 +16,7 @@ services:
       context: ./ecommerce-backend
       dockerfile: Dockerfile
     container_name: ecommerce-backend
+    image: backend-image
     ports:
       - "8080:8080"
     depends_on:
@@ -25,16 +26,23 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       API_SECURITY_TOKEN_SECRET: join123
+    networks:
+       - ecommerce-network
   frontend:
     build:
       context: ./ecommerce-frontend
       dockerfile: Dockerfile
     container_name: ecommerce-frontend
+    image: frontend-image
     ports:
       - "3000:3000"
     depends_on:
       - backend
     environment:
       API_URL: http://backend:8080
+    networks:
+        - ecommerce-network
+networks:
+  ecommerce-network:
 volumes:
   postgres_data:
